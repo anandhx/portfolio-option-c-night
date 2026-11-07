@@ -4,93 +4,165 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Option C · Console · Anandhu Ashok</title>
-  <meta name="description" content="Anandhu Ashok security and software console. Project and experience record.">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="Anandhu Ashok work console. Query the cybersecurity and software record from a prompt.">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#070b14; --panel:#101826; --line:#243044; --text:#e7eef8; --muted:#9aabbf; --cyan:#7ee0ff; --gold:#e4c98a; }
+    :root { --desk:#d7d0c3; --ink:#10140f; --term:#10140f; --text:#e7f6ea; --dim:#9fb3a4; --gold:#e4c98a; --green:#b6f3c4; }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--text); font-family:"IBM Plex Sans",sans-serif; }
-    a { color:var(--cyan); }
-    .wrap { width:min(1080px, calc(100% - 28px)); margin:0 auto; }
-    .status { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding:12px 0; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--gold); letter-spacing:.08em; }
-    h1 { font-size:clamp(36px,6vw,60px); letter-spacing:-.04em; margin:18px 0 8px; }
-    .muted { color:var(--muted); }
-    .controls { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0; }
-    button { font:inherit; color:var(--text); background:transparent; border:1px solid var(--line); border-radius:8px; padding:8px 10px; cursor:pointer; }
-    button[aria-pressed="true"] { border-color:var(--cyan); color:var(--cyan); }
-    table { width:100%; border-collapse:collapse; }
-    th, td { text-align:left; padding:12px 10px; border-top:1px solid var(--line); vertical-align:top; }
-    th { color:var(--muted); font-weight:500; font-size:13px; }
-    tr.pick { cursor:pointer; }
-    tr.pick[aria-selected="true"] td { background:#132033; }
-    .drawer { border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:12px; background:var(--panel); }
-    .drawer h2 { margin:0 0 8px; }
-    .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
-    .chips span { border:1px solid var(--line); border-radius:999px; padding:3px 8px; font-size:12px; }
-    .split { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:22px 0; }
-    .panel { border:1px solid var(--line); border-radius:12px; padding:16px; background:var(--panel); }
-    footer { color:var(--muted); padding:8px 0 32px; }
-    @media (max-width:800px) { .split { grid-template-columns:1fr; } th:nth-child(3), td:nth-child(3) { display:none; } }
+    body { margin:0; background:var(--desk); color:var(--ink); font-family:"IBM Plex Sans",sans-serif; }
+    a { color:#245c38; }
+    .wrap { width:min(1180px, calc(100% - 24px)); margin:0 auto; padding:22px 0 40px; }
+    .top { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:14px; }
+    h1 { font-family:"IBM Plex Mono",monospace; font-size:clamp(28px, 4vw, 42px); margin:0; letter-spacing:-.04em; }
+    .opt { font-family:"IBM Plex Mono",monospace; letter-spacing:.14em; font-size:12px; color:#5d564b; }
+    .desk { display:grid; grid-template-columns:1fr 280px; gap:12px; align-items:stretch; }
+    .term { background:var(--term); color:var(--text); border-radius:18px; min-height:68dvh; display:flex; flex-direction:column; box-shadow:0 24px 60px rgba(16,20,15,.28); overflow:hidden; }
+    .chrome { display:flex; gap:8px; align-items:center; padding:12px 14px; border-bottom:1px solid #243026; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--gold); }
+    .dot { width:10px; height:10px; border-radius:50%; background:#3c4a3e; }
+    .dot:nth-child(1) { background:#e07a7a; } .dot:nth-child(2) { background:#e4c98a; } .dot:nth-child(3) { background:#8dcea0; }
+    .screen { flex:1; overflow:auto; padding:14px 16px 8px; font-family:"IBM Plex Mono",monospace; font-size:13.5px; line-height:1.55; }
+    .cmd span, .prompt { color:var(--gold); }
+    .dim { color:var(--dim); }
+    .caseout h2 { margin:6px 0; font-size:22px; }
+    .caseout ul { margin:8px 0; padding-left:18px; }
+    .screen button { font:inherit; color:var(--green); background:none; border:0; cursor:pointer; text-align:left; }
+    .line { display:flex; gap:8px; align-items:center; padding:10px 14px 14px; border-top:1px solid #243026; }
+    .line label { font-family:"IBM Plex Mono",monospace; color:var(--gold); white-space:nowrap; }
+    .line input { flex:1; background:transparent; border:0; outline:none; color:var(--text); font:13.5px "IBM Plex Mono",monospace; min-width:0; }
+    .catalog { background:#f7f4ee; border-radius:18px; padding:12px; max-height:68dvh; overflow:auto; }
+    .catalog h2 { font-family:"IBM Plex Mono",monospace; font-size:13px; letter-spacing:.12em; margin:12px 8px 6px; }
+    .catalog button { display:block; width:100%; text-align:left; border:0; background:transparent; padding:6px 8px; cursor:pointer; border-radius:8px; }
+    .catalog button:hover, .catalog button:focus-visible { background:#ece5d8; }
+    .below { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:12px; }
+    .below article { background:#f7f4ee; border-radius:16px; padding:14px; }
+    .below h2 { margin:0 0 6px; font-size:16px; }
+    .muted { color:#5e584f; }
+    @media (max-width:900px) { .desk, .below { grid-template-columns:1fr; } .catalog { max-height:none; } }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="status"><span>OPTION C · CONSOLE</span><span>ANANDHU ASHOK · NETSS LAB · KOTTAYAM</span></div>
-    <h1>Security systems and the software around them.</h1>
-    <p class="muted">Developer on the Network and Systems Security Lab at Digital University Kerala. The record below is the build list: security tools, operational products, and public sites.</p>
-    <div class="split">
-      <article class="panel"><b>Cybersecurity</b><p class="muted">Project ASPER with Tata Elxsi. Phishing detection, forgery checks, firewall baselines, Falco runtime detection, PAN-OS, Mininet labs.</p></article>
-      <article class="panel"><b>Development</b><p class="muted">Python, Flask, PHP, MySQL, TypeScript, Flutter. Roles, data, interface, and delivery in one build.</p></article>
+    <div class="top">
+      <div>
+        <div class="opt">OPTION C · CONSOLE</div>
+        <h1>anandhx@netss:~/work</h1>
+      </div>
+      <div class="opt">35 SYSTEMS</div>
     </div>
-    <div class="controls" id="filters"></div>
-    <table>
-      <thead><tr><th>System</th><th>Domain</th><th>Stack</th><th>Access</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
-    <article class="drawer" id="drawer"></article>
-    <h2>Path</h2>
-    <article class="panel"><b>Software Developer, Digital University Kerala</b><p class="muted">March 2025 – Present. Before that: freelance developer in Kottayam from February 2024, Python at MGU Innovation Foundation from June to September 2024, IT administrator at MES College from April to June 2024. BCA, 2021–2024.</p></article>
-    <footer>Option C is a console for the same record. Reference mood: the dark developer portfolios with several thousand stars. <a href="mailto:anandhuashok6959@gmail.com">Email</a> · <a href="https://github.com/anandhx">GitHub</a> · <a href="https://www.linkedin.com/in/anandhu-ashok/">LinkedIn</a></footer>
+    <div class="desk">
+      <section class="term" aria-label="Work console">
+        <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>work — Anandhu Ashok</span></div>
+        <div class="screen" id="screen"></div>
+        <form class="line" id="line">
+          <label for="cmd">$</label>
+          <input id="cmd" autocomplete="off" spellcheck="false" aria-label="Command">
+        </form>
+      </section>
+      <aside class="catalog" id="catalog"></aside>
+    </div>
+    <div class="below">
+      <article><h2>Now</h2><p class="muted">Software Developer, Network and Systems Security Lab, Digital University Kerala, Technopark. March 2025 – Present. Project ASPER, with Tata Elxsi.</p></article>
+      <article><h2>Before</h2><p class="muted">Freelance developer in Kottayam from February 2024. Python at MGU Innovation Foundation, June–September 2024. IT administrator at MES College, April–June 2024.</p></article>
+      <article><h2>Contact</h2><p><a href="mailto:anandhuashok6959@gmail.com">anandhuashok6959@gmail.com</a><br><a href="https://github.com/anandhx">GitHub</a><br><a href="https://www.linkedin.com/in/anandhu-ashok/">LinkedIn</a></p></article>
+    </div>
   </div>
+  <script type="application/json" id="data">[{"id": "asper", "name": "ASPER Dashboard", "vis": "Private", "area": "Security", "stack": ["TypeScript", "Docker", "Authentication"], "brief": "Dashboard, authentication, and an offline Docker release for Project ASPER.", "parts": ["Login service", "Operator dashboard", "Offline Docker release"], "place": "Network and Systems Security Lab", "href": ""}, {"id": "phish", "name": "PhishAlert", "vis": "Private", "area": "Security", "stack": ["Web", "Flutter", "Detection"], "brief": "Link and domain review, with a blacklist and an audit log, on the web and in Flutter.", "parts": ["Website client", "Flutter client", "Blacklist and audit log"], "place": "Private security product", "href": ""}, {"id": "forge", "name": "Image Forgery Detection", "vis": "Private", "area": "Security", "stack": ["Python", "Flask"], "brief": "Flags manipulated images from inconsistencies in the image data.", "parts": ["Flask service", "Image checks", "Result view"], "place": "Private security tool", "href": ""}, {"id": "guard", "name": "Tech Guard", "vis": "Private", "area": "Security", "stack": ["Web", "Telegram", "Voice"], "brief": "Security assistant with alerts, Malayalam voice commands, and camera-based detection.", "parts": ["Alert feed", "Telegram assistant", "Camera detection"], "place": "Private security assistant", "href": ""}, {"id": "medi", "name": "MediSmart", "vis": "Private", "area": "Operations", "stack": ["Python", "Inventory", "Checkout"], "brief": "Kerala pharmacy system: prescription reading, store pickup, rack stock, and INR checkout.", "parts": ["Prescription reader", "Rack stock", "INR checkout"], "place": "Kerala pharmacy", "href": ""}, {"id": "cafe", "name": "Cafe Billing", "vis": "Private", "area": "Operations", "stack": ["TypeScript", "SQLite", "Excel"], "brief": "Offline point of sale with accounts, reports, print, and Excel.", "parts": ["Billing desk", "Accounts and reports", "Print and Excel"], "place": "Offline counter", "href": ""}, {"id": "dorm", "name": "Dormetry", "vis": "Private", "area": "Operations", "stack": ["Flutter", "Flask"], "brief": "One application for dormitory staff, the supervisor, and the owner.", "parts": ["Staff view", "Supervisor view", "Owner view"], "place": "Railway dormitory", "href": ""}, {"id": "wait", "name": "WaitHall", "vis": "Private", "area": "Operations", "stack": ["Python", "Booking"], "brief": "Seat booking for air-conditioned railway waiting halls.", "parts": ["Seat map", "Counter flow", "Booking record"], "place": "Railway waiting hall", "href": ""}, {"id": "park", "name": "Railway Parking", "vis": "Private", "area": "Operations", "stack": ["Flask", "HTML"], "brief": "Multi-location station parking for counter staff.", "parts": ["Locations", "Counter entry", "Parking record"], "place": "Railway stations", "href": ""}, {"id": "track", "name": "Vehicle Tracking", "vis": "Private", "area": "Operations", "stack": ["Web", "Roles"], "brief": "Vehicles, employees, leave, and entry logs for a company site.", "parts": ["Vehicle register", "Leave", "Gate log"], "place": "Company site", "href": ""}, {"id": "vms", "name": "Vehicle Management", "vis": "Private", "area": "Operations", "stack": ["Web", "Roles"], "brief": "Vehicle management with separate admin, mechanic, and user roles.", "parts": ["Admin", "Mechanic", "User"], "place": "Workshop roles", "href": ""}, {"id": "jobs", "name": "Bridgex Jobs", "vis": "Private", "area": "Operations", "stack": ["Python", "Telegram", "SQLite"], "brief": "Job alerts and resume scoring delivered in Telegram.", "parts": ["Job alerts", "Resume scoring", "SQLite store"], "place": "Telegram", "href": ""}, {"id": "blind", "name": "BlindsHelper", "vis": "Private", "area": "Operations", "stack": ["Web", "Voice"], "brief": "Voice navigation, screen reading, and magnification for low-vision users.", "parts": ["Voice navigation", "Screen reading", "Magnification"], "place": "Access tool", "href": ""}, {"id": "garage", "name": "Auto Service Dashboard", "vis": "Private", "area": "Operations", "stack": ["Web", "Inventory"], "brief": "Spare parts, accessories, and garage booking. Final-year project.", "parts": ["Spare parts", "Accessories", "Garage booking"], "place": "Final-year project", "href": ""}, {"id": "train", "name": "Train Tracker", "vis": "Private", "area": "Operations", "stack": ["Web"], "brief": "Live rail monitoring. A college project.", "parts": ["Live train view", "Rail monitoring"], "place": "College project", "href": ""}, {"id": "xplore", "name": "Xplore", "vis": "Private", "area": "Operations", "stack": ["Flask"], "brief": "Travel planning and a business directory.", "parts": ["Travel planning", "Business directory"], "place": "Flask application", "href": ""}, {"id": "ev", "name": "EV Service Station", "vis": "Private", "area": "Operations", "stack": ["Web"], "brief": "On-demand charging and mechanical support.", "parts": ["Charging request", "Mechanical support"], "place": "Mobile service", "href": ""}, {"id": "craft", "name": "Craft Marketplace", "vis": "Private", "area": "Operations", "stack": ["PHP", "MySQL"], "brief": "Marketplace for handmade goods.", "parts": ["Listings", "MySQL catalogue"], "place": "PHP and MySQL", "href": ""}, {"id": "eden", "name": "Eden Garden", "vis": "Private", "area": "Operations", "stack": ["Web"], "brief": "Website for an event-planning studio.", "parts": ["Studio site", "Event enquiry"], "place": "Event planners", "href": ""}, {"id": "events", "name": "Event Management", "vis": "Private", "area": "Operations", "stack": ["Web"], "brief": "Event management system.", "parts": ["Event records", "Event desk"], "place": "Private system", "href": ""}, {"id": "canteen", "name": "College Canteen", "vis": "Public", "area": "Public", "stack": ["PHP", "MySQL"], "brief": "Campus canteen with a menu, inventory, and ordering.", "parts": ["Menu", "Inventory", "Orders"], "place": "College campus", "href": "https://github.com/anandhx/college-canteen-mini-project"}, {"id": "radio", "name": "Kerala Radio", "vis": "Public", "area": "Public", "stack": ["Flask", "Python"], "brief": "Web player for Kerala radio stations.", "parts": ["Station list", "Player", "Flask app"], "place": "Public web", "href": "https://github.com/anandhx/Kerala-Radio"}, {"id": "mes", "name": "MES College Kottayam", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "College site for departments, admissions, and events.", "parts": ["Departments", "Admissions", "Events"], "place": "MES Golden Jubilee College", "href": "https://github.com/anandhx/mes-kottayam"}, {"id": "nurse", "name": "Nursing Locker", "vis": "Public", "area": "Public", "stack": ["HTML"], "brief": "BSc Nursing question papers and study notes.", "parts": ["Question papers", "Study notes"], "place": "Public archive", "href": "https://github.com/anandhx/Nursing-Locker"}, {"id": "bus", "name": "Bus World Erumeli", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "Site for a vehicle accessories shop.", "parts": ["Shop pages", "Accessories"], "place": "Erumeli", "href": "https://github.com/anandhx/bus-world-erumely"}, {"id": "herb", "name": "MA Herbals", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "Site for a herbal hair-care brand.", "parts": ["Brand story", "Hair-care range"], "place": "Public web", "href": "https://github.com/anandhx/ma_herbals"}, {"id": "paint", "name": "Perfect Painting", "vis": "Public", "area": "Public", "stack": ["HTML"], "brief": "Bill generator for a painting business.", "parts": ["Bill form", "Generated bill"], "place": "Public web", "href": "https://github.com/anandhx/Perfect-Painting"}, {"id": "sand", "name": "Plakkattu", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "Site for an M-sand and building-materials yard in Kottayam.", "parts": ["Materials", "Yard details"], "place": "Kottayam", "href": "https://github.com/anandhx/Plakkattu"}, {"id": "bake", "name": "The Baking Hub", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "Mobile site for a bakery.", "parts": ["Mobile layout", "Bakery pages"], "place": "Public web", "href": "https://github.com/anandhx/thebakinghub"}, {"id": "jinsho", "name": "Jinsho", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "Portfolio site for an interior studio.", "parts": ["Studio work", "Interior pages"], "place": "Public web", "href": "https://github.com/anandhx/portfolio-jinsho"}, {"id": "menu", "name": "Smart Menu", "vis": "Public", "area": "Public", "stack": ["HTML"], "brief": "A menu site.", "parts": ["Menu page"], "place": "Public web", "href": "https://github.com/anandhx/fd"}, {"id": "tvm", "name": "Discover Trivandrum", "vis": "Public", "area": "Public", "stack": ["HTML", "CSS"], "brief": "A guide to Thiruvananthapuram.", "parts": ["City guide", "Place pages"], "place": "Public web", "href": "https://github.com/anandhx/tvm"}, {"id": "serena", "name": "Serena", "vis": "Public", "area": "Public", "stack": ["Python"], "brief": "Python virtual assistant for everyday tasks.", "parts": ["Assistant", "Everyday tasks"], "place": "Python", "href": "https://github.com/anandhx/Serena"}, {"id": "tasks", "name": "Task Management", "vis": "Public", "area": "Public", "stack": ["Python"], "brief": "A task management system.", "parts": ["Task list", "Python app"], "place": "Python", "href": "https://github.com/anandhx/Task-Management-System"}, {"id": "remind", "name": "Reminder Bot", "vis": "Public", "area": "Public", "stack": ["Python"], "brief": "Python bot for event reminders.", "parts": ["Event reminders", "Python bot"], "place": "Python", "href": "https://github.com/anandhx/Reminder-Bot"}]</script>
   <script>
-    const rows = [
-      ["ASPER Dashboard","Security","TypeScript, Docker","Private","Login, dashboard, and an offline Docker package for the lab’s security automation system."],
-      ["PhishAlert","Security","Web, Flutter","Private","URL review, blacklist, and audit log on two clients."],
-      ["Image Forgery Detection","Security","Python, Flask","Private","Detects manipulated images from file inconsistencies."],
-      ["Tech Guard","Security","Web, Telegram","Private","Alerts, Malayalam voice, and camera detection."],
-      ["MediSmart","Operations","Python","Private","Pharmacy flow: prescriptions, pickup, stock, INR checkout."],
-      ["Cafe Billing","Operations","TypeScript, SQLite","Private","Offline billing, accounts, reports, print, Excel."],
-      ["Dormetry","Operations","Flutter, Flask","Private","Staff, supervisor, and owner in one booking app."],
-      ["WaitHall","Operations","Python","Private","Waiting-hall seat counter."],
-      ["Railway Parking","Operations","Flask","Private","Multi-location station parking."],
-      ["Vehicle Tracking","Operations","Web","Private","People, vehicles, leave, and gate logs."],
-      ["Bridgex Jobs","Operations","Python, Telegram","Private","Job alerts and resume scoring."],
-      ["BlindsHelper","Access","Web","Private","Voice navigation, reading, magnification."],
-      ["College Canteen","Public web","PHP, MySQL","Public","Menu, inventory, ordering.","https://github.com/anandhx/college-canteen-mini-project"],
-      ["Kerala Radio","Public web","Flask","Public","Station player.","https://github.com/anandhx/Kerala-Radio"],
-      ["MES College Kottayam","Public web","HTML, CSS","Public","Departments, admissions, events.","https://github.com/anandhx/mes-kottayam"],
-      ["Nursing Locker","Public web","HTML","Public","Nursing papers and notes.","https://github.com/anandhx/Nursing-Locker"],
-      ["Bus World Erumeli","Public web","HTML, CSS","Public","Accessories shop site.","https://github.com/anandhx/bus-world-erumely"]
-    ];
-    const filters = ["All","Security","Operations","Public web"];
-    let filter = "All";
-    let pick = 0;
-    const body = document.getElementById("rows");
-    const drawer = document.getElementById("drawer");
-    const bar = document.getElementById("filters");
-    function visible() { return rows.map((r,i)=>({r,i})).filter(x => filter==="All" || x.r[1]===filter); }
-    function drawBar() { bar.innerHTML = filters.map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===filter}">${f}</button>`).join(""); }
-    function draw() {
-      const list = visible();
-      if (!list.some(x => x.i===pick)) pick = list[0].i;
-      body.innerHTML = list.map(({r,i})=>`<tr class="pick" data-i="${i}" aria-selected="${i===pick}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
-      const r = rows[pick];
-      const link = r[5] ? `<p><a href="${r[5]}">Repository</a></p>` : `<p class="muted">Private repository.</p>`;
-      drawer.innerHTML = `<div class="kicker" style="color:var(--gold);font-size:12px;letter-spacing:.12em">${r[3].toUpperCase()}</div><h2>${r[0]}</h2><p>${r[4]}</p><div class="chips">${r[2].split(", ").map(s=>`<span>${s}</span>`).join("")}</div>${link}`;
+    const WORK = JSON.parse(document.getElementById("data").textContent);
+    const screen = document.getElementById("screen");
+    const input = document.getElementById("cmd");
+    const form = document.getElementById("line");
+    const catalog = document.getElementById("catalog");
+    const history = [];
+    let hi = 0;
+    function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+    function print(html) {
+      const el = document.createElement("div");
+      el.className = "blk";
+      el.innerHTML = html;
+      screen.appendChild(el);
+      while (screen.children.length > 40) screen.firstChild.remove();
+      screen.scrollTop = screen.scrollHeight;
     }
-    bar.addEventListener("click", e => { if (!e.target.dataset.f) return; filter = e.target.dataset.f; drawBar(); draw(); });
-    body.addEventListener("click", e => { const tr = e.target.closest("tr"); if (!tr) return; pick = Number(tr.dataset.i); draw(); });
-    drawBar(); draw();
+    function matches(query) {
+      const q = query.toLowerCase();
+      return WORK.filter(p => !q || p.area.toLowerCase() === q || p.vis.toLowerCase() === q || p.id === q || p.name.toLowerCase().includes(q) || p.stack.join(" ").toLowerCase().includes(q) || p.brief.toLowerCase().includes(q));
+    }
+    function openItem(p) {
+      const access = p.href ? `<a href="${esc(p.href)}">repository</a>` : `private repository`;
+      print(`<article class="caseout"><div class="dim">${esc(p.vis)} · ${esc(p.area)} · ${esc(p.place)}</div><h2>${esc(p.name)}</h2><p>${esc(p.brief)}</p><ul>${p.parts.map((part,i)=>`<li><b>${String(i+1).padStart(2,"0")}</b> ${esc(part)}</li>`).join("")}</ul><p>${p.stack.map(esc).join(" · ")}</p><p>${access}</p></article>`);
+    }
+    function run(raw) {
+      const text = raw.trim();
+      const [head, ...rest] = text.split(/\s+/);
+      const arg = rest.join(" ");
+      const cmd = (head || "").toLowerCase();
+      if (cmd === "help") {
+        print(`<p>help &nbsp; list commands<br>ls [query] &nbsp; systems by area, stack, or name<br>open &lt;name&gt; &nbsp; open a case<br>who &nbsp; identity<br>path &nbsp; experience<br>tools &nbsp; security practice<br>clear &nbsp; clear the screen<br><span class="dim">Tab completes a command or a system id. The arrow keys walk history.</span></p>`);
+      } else if (cmd === "ls" || cmd === "find") {
+        const rows = matches(arg);
+        print(rows.length ? rows.map(p => `<div><button type="button" data-id="${p.id}">${esc(p.name)}</button> <span class="dim">${esc(p.vis)} · ${esc(p.area)} · ${esc(p.stack.join(", "))}</span></div>`).join("") : `<p>No match.</p>`);
+      } else if (cmd === "open") {
+        const rows = matches(arg);
+        const exact = WORK.find(p => p.id === arg.toLowerCase() || p.name.toLowerCase() === arg.toLowerCase());
+        if (exact) openItem(exact);
+        else if (rows.length === 1) openItem(rows[0]);
+        else if (rows.length) print(`<p>${rows.length} matches. Pick one.</p>` + rows.map(p => `<div><button type="button" data-id="${p.id}">${esc(p.name)}</button></div>`).join(""));
+        else print(`<p>No system named ${esc(arg)}.</p>`);
+      } else if (cmd === "who") {
+        print(`<p>Anandhu Ashok<br>Cybersecurity and software developer<br>Digital University Kerala, Technopark<br>Kottayam, Kerala<br>anandhuashok6959@gmail.com</p>`);
+      } else if (cmd === "path") {
+        print(`<p>Software Developer, Digital University Kerala · Mar 2025 – Present<br>Freelance Developer, Kottayam · Feb 2024 – Present<br>Python Developer, MGU Innovation Foundation · Jun 2024 – Sep 2024<br>IT Administrator, MES Golden Jubilee College · Apr 2024 – Jun 2024<br>BCA, 2021–2024</p>`);
+      } else if (cmd === "tools") {
+        print(`<p>Project ASPER with Tata Elxsi.<br>Falco · Sophos Firewall · PAN-OS · Mininet · Ansible · Linux<br>Phishing detection, image checks, firewall baselines, runtime detection.<br>SETS Chennai workshop on defense and incident response.</p>`);
+      } else if (cmd === "clear") {
+        screen.innerHTML = "";
+      } else if (cmd) {
+        print(`<p>Unknown command. Type help.</p>`);
+      }
+    }
+    function submit(raw) {
+      if (!raw.trim()) return;
+      history.push(raw);
+      hi = history.length;
+      print(`<div class="cmd"><span>$</span> ${esc(raw)}</div>`);
+      run(raw);
+    }
+    const names = ["help","ls","open","who","path","tools","clear"];
+    form.addEventListener("submit", e => { e.preventDefault(); const raw = input.value; input.value = ""; submit(raw); });
+    input.addEventListener("keydown", e => {
+      if (e.key === "ArrowUp") { e.preventDefault(); if (hi > 0) { hi -= 1; input.value = history[hi]; } }
+      if (e.key === "ArrowDown") { e.preventDefault(); if (hi < history.length - 1) { hi += 1; input.value = history[hi]; } else { hi = history.length; input.value = ""; } }
+      if (e.key === "Tab") {
+        e.preventDefault();
+        const parts = input.value.split(/\s+/);
+        if (parts.length < 2) {
+          const hits = names.filter(n => n.startsWith(parts[0].toLowerCase()));
+          if (hits.length === 1) input.value = hits[0] + " ";
+        } else {
+          const q = parts.slice(1).join(" ").toLowerCase();
+          const hits = WORK.filter(p => p.id.startsWith(q) || p.name.toLowerCase().startsWith(q));
+          if (hits.length === 1) input.value = parts[0] + " " + hits[0].id + " ";
+        }
+      }
+    });
+    screen.addEventListener("click", e => { const b = e.target.closest("[data-id]"); if (!b) return; submit("open " + b.dataset.id); });
+    ["Security","Operations","Public"].forEach(area => {
+      const h = document.createElement("h2");
+      h.textContent = area.toUpperCase();
+      catalog.appendChild(h);
+      WORK.filter(p => p.area === area).forEach(p => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.dataset.id = p.id;
+        b.textContent = p.name;
+        catalog.appendChild(b);
+      });
+    });
+    catalog.addEventListener("click", e => { const b = e.target.closest("[data-id]"); if (!b) return; submit("open " + b.dataset.id); });
+    print(`<p>Anandhu Ashok · cybersecurity and software<br><span class="dim">Network and Systems Security Lab · Kottayam</span><br>${WORK.length} systems on record. Type help, or pick a name.</p>`);
+    submit("ls");
+    input.focus();
   </script>
 </body>
 </html>
