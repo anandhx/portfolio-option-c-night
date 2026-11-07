@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Option C · Night · Anandhu Ashok</title>
+  <meta name="description" content="Preview portfolio for Anandhu Ashok. Style reference: dark skill-and-project developer portfolios.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;650;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0c0120; --card:#170b33; --text:#f5f3ff; --muted:#c4b8e0; --a:#c770f0; --b:#7c4dff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Poppins,sans-serif; background:radial-gradient(800px 400px at 80% 0%, rgba(124,77,255,.35), transparent 50%), var(--bg); color:var(--text); }
+    a { color:#e9d5ff; }
+    .wrap { width:min(1000px, calc(100% - 28px)); margin:0 auto; }
+    nav { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:18px 0; }
+    nav div { display:flex; flex-wrap:wrap; gap:14px; }
+    nav a { color:var(--text); text-decoration:none; font-weight:500; }
+    .hero, section { text-align:center; padding:28px 0; }
+    .kicker { letter-spacing:.16em; font-size:12px; color:#e9d5ff; }
+    h1 { font-size:clamp(40px, 7vw, 72px); margin:8px 0; line-height:1; }
+    .grad { background:linear-gradient(90deg, var(--a), var(--b)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .lede { color:var(--muted); max-width:58ch; margin:0 auto; }
+    .actions { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .actions a { border:1px solid #6d28d9; border-radius:999px; padding:10px 14px; text-decoration:none; }
+    h2 { font-size:32px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; text-align:left; }
+    .tile { background:rgba(23,11,51,.8); border:1px solid rgba(199,112,240,.35); border-radius:16px; padding:16px; }
+    .tile h3 { margin:8px 0; }
+    .tile p { color:var(--muted); margin:0; }
+    .mini { font-size:11px; letter-spacing:.1em; font-weight:700; }
+    .time { text-align:left; max-width:720px; margin:0 auto; }
+    .time article { border-left:2px solid #7c4dff; padding:4px 0 16px 16px; }
+    .time span { color:var(--muted); display:block; }
+    footer { text-align:center; color:var(--muted); padding:10px 0 36px; }
+    @media (max-width:800px) { .grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav><strong>AA</strong><div><a href="#skills">Skills</a><a href="#work">Projects</a><a href="#path">Experience</a><a href="#contact">Contact</a></div></nav>
+    <header class="hero">
+      <div class="kicker">OPTION C · NIGHT</div>
+      <h1>Anandhu <span class="grad">Ashok</span></h1>
+      <p class="lede">Cybersecurity and software developer. Network defense at Digital University Kerala, and web applications from Kottayam.</p>
+      <div class="actions">
+        <a href="https://github.com/anandhx">GitHub</a>
+        <a href="https://www.linkedin.com/in/anandhu-ashok/">LinkedIn</a>
+        <a href="mailto:anandhuashok6959@gmail.com">Email</a>
+      </div>
+    </header>
+    <section id="skills">
+      <h2 class="grad">Skills</h2>
+      <div class="grid">
+        <article class="tile"><h3>Cybersecurity</h3><p>Network defense, security automation, phishing detection, firewall baselines, runtime detection, incident response.</p></article>
+        <article class="tile"><h3>Development</h3><p>Python, Flask, PHP, MySQL, JavaScript, TypeScript, Flutter, HTML, CSS, Linux, Git.</p></article>
+        <article class="tile"><h3>Security tools</h3><p>Falco, Sophos Firewall, Palo Alto PAN-OS, Mininet, Ansible.</p></article>
+      </div>
+    </section>
+    <section id="work">
+      <h2 class="grad">Projects</h2>
+      <div class="grid">
+        <article class="tile"><div class="mini">PRIVATE</div><h3>ASPER Dashboard</h3><p>Security automation dashboard, login, and offline Docker release.</p></article>
+        <article class="tile"><div class="mini">PRIVATE</div><h3>PhishAlert</h3><p>URL checks, blacklist, and audit logs on web and Flutter.</p></article>
+        <article class="tile"><div class="mini">PRIVATE</div><h3>MediSmart</h3><p>Kerala pharmacy application with pickup and INR checkout.</p></article>
+        <article class="tile"><div class="mini">PRIVATE</div><h3>Cafe Billing</h3><p>Offline billing, accounts, reports, print, and Excel.</p></article>
+        <article class="tile"><div class="mini">PRIVATE</div><h3>Dormetry / WaitHall</h3><p>Dormitory booking and waiting-hall seat management.</p></article>
+        <article class="tile"><div class="mini">PUBLIC</div><h3><a href="https://github.com/anandhx/Kerala-Radio">Kerala Radio</a></h3><p>Flask player. Also <a href="https://github.com/anandhx/college-canteen-mini-project">College Canteen</a> and <a href="https://github.com/anandhx/mes-kottayam">MES College</a>.</p></article>
+      </div>
+    </section>
+    <section id="path">
+      <h2 class="grad">Experience</h2>
+      <div class="time">
+        <article><b>Software Developer · Digital University Kerala</b><span>March 2025 – Present. Network and Systems Security Lab. Project ASPER with Tata Elxsi.</span></article>
+        <article><b>Freelance Developer · Kottayam</b><span>February 2024 – Present. Web systems and security-focused applications.</span></article>
+        <article><b>Python Developer · MGU Innovation Foundation</b><span>June 2024 – September 2024.</span></article>
+        <article><b>IT Administrator · MES College Kottayam</b><span>April 2024 – June 2024. BCA, 2021–2024.</span></article>
+      </div>
+    </section>
+    <section id="contact"><h2 class="grad">Contact</h2><p><a href="mailto:anandhuashok6959@gmail.com">anandhuashok6959@gmail.com</a></p></section>
+    <footer>Option C is an original night layout. Reference: soumyajit4419/Portfolio and masterPortfolio, about 6,500 and 4,200 stars.</footer>
+  </div>
+</body>
+</html>
